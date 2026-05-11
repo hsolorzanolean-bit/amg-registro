@@ -286,7 +286,19 @@ function pedirGPS(){
 }
 if(navigator.geolocation){
   navigator.geolocation.getCurrentPosition(setGeoOk,setGeoFail,{enableHighAccuracy:true,timeout:12000,maximumAge:0});
-  setInterval(()=>{if(gLat)navigator.geolocation.getCurrentPosition(pos=>{gLat=pos.coords.latitude.toFixed(6);gLng=pos.coords.longitude.toFixed(6);gAcc=Math.round(pos.coords.accuracy);},()=>{},{enableHighAccuracy:true,timeout:8000,maximumAge:0});},120000);
+  // Refresh GPS every 90 seconds silently
+  setInterval(()=>{
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(pos=>{
+        gLat=pos.coords.latitude.toFixed(6);
+        gLng=pos.coords.longitude.toFixed(6);
+        gAcc=Math.round(pos.coords.accuracy);
+      },()=>{
+        // If GPS fails on refresh, reset so next submit requires re-verification
+        gLat=null;gLng=null;gAcc=null;
+      },{enableHighAccuracy:true,timeout:8000,maximumAge:0});
+    }
+  },90000);
 }else{setGeoFail();}
 
 document.getElementById('f-vehicle').addEventListener('change',function(){
@@ -364,6 +376,11 @@ function calcHoras(inicio,fin){
 }
 
 async function enviar(){
+  // Always verify GPS is fresh before submitting
+  if(!gLat){
+    alert('Se requiere verificacion de conexion para registrar. Toca Continuar en el recuadro de arriba.');
+    return;
+  }
   const nombre=document.getElementById('f-name').value.trim();
   const vehiculo=document.getElementById('f-vehicle').value;
   if(!nombre){alert('Por favor ingresa tu nombre completo.');return;}
@@ -425,6 +442,8 @@ async function doEnviar(nombre,vehiculo){
   document.getElementById('ov-sub').textContent=subM[tipo];
   document.getElementById('ov-time').textContent=ahora();
   document.getElementById('overlay').classList.add('on');
+  // Reset GPS after submit — next registro requires fresh verification
+  gLat=null;gLng=null;gAcc=null;
 }
 
 function nuevoRegistro(){

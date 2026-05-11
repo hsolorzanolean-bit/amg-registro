@@ -137,8 +137,9 @@ textarea{resize:none;height:60px;font-size:13px;}
         </div>
         <div class="tipo-row2">
           <button class="tbtn" id="t-comp" onclick="setTipo('comp')">Dia<br>compensatorio</button>
-          <button class="tbtn-pk" id="t-pk" onclick="setTipo('pk')">Solicitar<br>recogida</button>
+          <button class="tbtn" id="t-fest" onclick="setTipo('fest')">Festivo<br>trabajado</button>
         </div>
+        <button class="tbtn-pk" id="t-pk" onclick="setTipo('pk')">Solicitar recogida — requiere aprobador</button>
       </div>
 
       <!-- OT -->
@@ -196,6 +197,25 @@ textarea{resize:none;height:60px;font-size:13px;}
         <div class="notice">La solicitud sera revisada y notificada.</div>
       </div>
 
+      <!-- FESTIVO -->
+      <div class="extra" id="x-fest">
+        <div class="fg">
+          <label>Director aprobador</label>
+          <div class="sw">
+            <select id="f-ap-fest">
+              <option value="">Selecciona director...</option>
+              <option>Juan Sebastian Bejarano</option>
+              <option>Javier Espinosa</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Motivo / referencia del festivo trabajado</label>
+          <textarea id="f-motivo-fest" placeholder="Ej: Trabaje el 1 de enero por cierre de proyecto..."></textarea>
+        </div>
+        <div class="notice">La solicitud sera revisada. Aplican recargos por ley colombiana.</div>
+      </div>
+
       <!-- PICKUP -->
       <div class="extra" id="x-pk">
         <div class="fg">
@@ -247,7 +267,7 @@ textarea{resize:none;height:60px;font-size:13px;}
 </div>
 
 <script>
-const SCRIPT_URL='https://script.google.com/macros/s/AKfycbycTzn_QVqhJgiWuptcnDQ6XGLQNfZAaC_waB3dV12lXl7ieLUSZLTylU0oMrJ2gP0I/exec';
+const SCRIPT_URL='https://script.google.com/macros/s/AKfycbzoYcrpsnasw6Gt8cCWymINx2eUD-zTpSeQAY6L9xE27wKHERyTl4oopU3hEAyzVyR0/exec';
 let gLat=null,gLng=null,gAcc=null,tipo=null;
 let pendingSalida=false, alertaOvertime=false;
 
@@ -355,12 +375,15 @@ function setTipo(t){
     out:{sel:'s-out',bc:'c-out',txt:'Registrar salida de turno'},
     ot:{sel:'s-ot',bc:'c-ot',txt:'Enviar solicitud de tiempo extra'},
     comp:{sel:'s-comp',bc:'c-comp',txt:'Enviar solicitud de dia compensatorio'},
+    fest:{sel:'s-ot',bc:'c-ot',txt:'Registrar festivo trabajado'},
     pk:{sel:'s-pk',bc:'c-pk',txt:'Enviar solicitud de recogida'},
   }[t];
   if(t==='pk') document.getElementById('t-pk').classList.add('s-pk');
+  else if(t==='fest') document.getElementById('t-fest').classList.add('s-ot');
   else document.getElementById('t-'+t).classList.add(cfg.sel);
   if(t==='ot')   document.getElementById('x-ot').classList.add('on');
   if(t==='comp') document.getElementById('x-comp').classList.add('on');
+  if(t==='fest') document.getElementById('x-fest').classList.add('on');
   if(t==='pk')   document.getElementById('x-pk').classList.add('on');
   sb.className='sbtn '+cfg.bc;
   sb.textContent=cfg.txt;
@@ -391,9 +414,20 @@ async function enviar(){
     if(!document.getElementById('f-hora-inicio').value||!document.getElementById('f-hora-fin').value){alert('Debes indicar las horas de inicio y fin del tiempo extra.');return;}
   }
   if(tipo==='comp'&&!document.getElementById('f-ap-comp').value){alert('El dia compensatorio requiere un director aprobador.');return;}
+  if(tipo==='fest'&&!document.getElementById('f-ap-fest').value){alert('El festivo trabajado requiere un director aprobador.');return;}
   if(tipo==='pk'&&!document.getElementById('f-ap-pk').value){alert('La recogida requiere un director aprobador.');return;}
 
   // Check overtime on salida
+  // Nocturnal detection
+  const nowHour = new Date().getHours();
+  const esNocturno = nowHour >= 21 || nowHour < 6;
+  if(esNocturno && (tipo==='in'||tipo==='out')){
+    const msg = tipo==='in' 
+      ? 'Registro de entrada en horario nocturno detectado. Se notificara al director.'
+      : 'Registro de salida en horario nocturno detectado. Se notificara al director.';
+    // Non-blocking — just noted in payload
+  }
+
   if(tipo==='out'){
     checkOvertime(async(skip)=>{
       if(skip!==false)return; // user chose solo salida, continue
@@ -405,15 +439,16 @@ async function enviar(){
 }
 
 async function doEnviar(nombre,vehiculo){
-  const tipoLabel={in:'Entrada a turno',out:'Salida de turno',ot:'Tiempo extra',comp:'Dia compensatorio',pk:'Solicitud de recogida'}[tipo];
+  const tipoLabel={in:'Entrada a turno',out:'Salida de turno',ot:'Tiempo extra',comp:'Dia compensatorio',fest:'Festivo trabajado',pk:'Solicitud de recogida'}[tipo];
   const horaInicio=document.getElementById('f-hora-inicio')?.value||'';
   const horaFin=document.getElementById('f-hora-fin')?.value||'';
 
   const payload={
     nombre,vehiculo,tipo:tipoLabel,
-    aprobador:tipo==='ot'?document.getElementById('f-ap-ot').value:tipo==='comp'?document.getElementById('f-ap-comp').value:tipo==='pk'?document.getElementById('f-ap-pk').value:'',
-    motivo:tipo==='ot'?document.getElementById('f-motivo').value.trim():tipo==='comp'?('Fecha: '+document.getElementById('f-fecha-comp').value+' - '+document.getElementById('f-motivo-comp').value.trim()):'',
+    aprobador:tipo==='ot'?document.getElementById('f-ap-ot').value:tipo==='comp'?document.getElementById('f-ap-comp').value:tipo==='fest'?document.getElementById('f-ap-fest').value:tipo==='pk'?document.getElementById('f-ap-pk').value:'',
+    motivo:tipo==='ot'?document.getElementById('f-motivo').value.trim():tipo==='comp'?('Fecha: '+document.getElementById('f-fecha-comp').value+' - '+document.getElementById('f-motivo-comp').value.trim()):tipo==='fest'?document.getElementById('f-motivo-fest').value.trim():'',
     recogida:tipo==='pk'?document.getElementById('f-lugar').value.trim():'',
+    fechaComp:tipo==='comp'?document.getElementById('f-fecha-comp').value:'',
     horaInicioExtra:horaInicio,
     horaFinExtra:horaFin,
     horasSolicitadas:calcHoras(horaInicio,horaFin),

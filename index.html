@@ -170,7 +170,7 @@ textarea{resize:none;height:60px;font-size:13px;}
           <label>Motivo del tiempo extra</label>
           <textarea id="f-motivo" placeholder="Describe brevemente..."></textarea>
         </div>
-        <div class="notice">El director aprobara primero. Gestion Humana confirma el pago.</div>
+        <div class="notice">La solicitud sera revisada y notificada.</div>
       </div>
 
       <!-- COMP -->
@@ -193,7 +193,7 @@ textarea{resize:none;height:60px;font-size:13px;}
           <label>Motivo</label>
           <textarea id="f-motivo-comp" placeholder="Ej: Trabaje el sabado 10 de mayo..."></textarea>
         </div>
-        <div class="notice">El director aprobara primero. Gestion Humana confirma el pago.</div>
+        <div class="notice">La solicitud sera revisada y notificada.</div>
       </div>
 
       <!-- PICKUP -->
@@ -433,8 +433,8 @@ async function doEnviar(nombre,vehiculo){
   const subM={
     in:'Tu entrada a turno quedo registrada.',
     out:'Tu salida de turno quedo registrada.',
-    ot:'Solicitud enviada al director '+payload.aprobador+'. Pendiente de aprobacion.',
-    comp:'Solicitud de dia compensatorio enviada al director '+payload.aprobador+'.',
+    ot:'Solicitud enviada. Pendiente de aprobacion.',
+    comp:'Solicitud de dia compensatorio enviada. Pendiente de aprobacion.',
     pk:'Solicitud de recogida enviada al director '+payload.aprobador+'. Recuerda registrar tu entrada cuando llegues.'
   };
   document.getElementById('ov-icon').textContent=iconM[tipo];

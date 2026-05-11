@@ -257,8 +257,19 @@ function pedirGPS(){
   navigator.geolocation.getCurrentPosition(setGeoOk,setGeoFail,{enableHighAccuracy:true,timeout:12000,maximumAge:0});
 }
 
+// Forzar GPS fresco cada vez — sin cache
 if(navigator.geolocation){
   navigator.geolocation.getCurrentPosition(setGeoOk,setGeoFail,{enableHighAccuracy:true,timeout:12000,maximumAge:0});
+  // Re-verificar GPS cada 2 minutos para mantener coordenadas frescas
+  setInterval(function(){
+    if(gLat){ // solo si ya tenía GPS, actualizar silenciosamente
+      navigator.geolocation.getCurrentPosition(function(pos){
+        gLat=pos.coords.latitude.toFixed(6);
+        gLng=pos.coords.longitude.toFixed(6);
+        gAcc=Math.round(pos.coords.accuracy);
+      },function(){},{ enableHighAccuracy:true,timeout:8000,maximumAge:0});
+    }
+  }, 120000);
 } else {
   setGeoFail();
 }
@@ -294,6 +305,11 @@ function setTipo(t){
 }
 
 async function enviar(){
+  // Verificar que el GPS sigue activo en el momento del envío
+  if(!gLat){
+    alert('Se requiere verificación de conexión para registrar. Por favor recarga la página.');
+    return;
+  }
   const nombre=document.getElementById('f-name').value.trim();
   const vehiculo=document.getElementById('f-vehicle').value;
   if(!nombre){alert('Por favor ingresa tu nombre completo.');return;}
@@ -335,15 +351,13 @@ async function enviar(){
   document.getElementById('ov-sub').textContent=subM[tipo];
   document.getElementById('ov-time').textContent=ahora();
   document.getElementById('overlay').classList.add('on');
+  // Resetear GPS para forzar nueva verificación en el próximo registro
+  gLat=null; gLng=null; gAcc=null;
 }
 
 function nuevoRegistro(){
-  document.getElementById('overlay').classList.remove('on');
-  ['f-name','f-motivo','f-lugar','f-motivo-comp','f-fecha-comp'].forEach(id=>document.getElementById(id).value='');
-  ['f-vehicle','f-ap-ot','f-ap-pk','f-ap-comp'].forEach(id=>document.getElementById(id).value='');
-  document.getElementById('t-pk').style.display='none';
-  document.getElementById('sbtn').disabled=false;
-  setTipo(null);
+  // Recargar página completamente — fuerza nueva verificación GPS
+  window.location.reload(true);
 }
 </script>
 </body>

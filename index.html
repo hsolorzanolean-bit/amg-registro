@@ -70,11 +70,12 @@ textarea{resize:none;height:60px;font-size:13px;}
 .tbtn-pk.s-pk{background:var(--blue);color:var(--blue-dark);border-color:var(--blue-border);font-weight:600;}
 .extra{display:none;}.extra.on{display:block;}
 .notice{background:var(--blue);border:1px solid var(--blue-border);border-radius:10px;padding:9px 11px;font-size:11px;color:var(--blue-dark);line-height:1.55;margin-top:8px;margin-bottom:10px;}
-.sbtn{width:100%;padding:13px;border-radius:13px;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;display:none;transition:all 0.2s;}
+.sbtn{width:100%;padding:15px;border-radius:14px;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:10px;display:none;transition:all 0.2s;letter-spacing:0.3px;}
+.sbtn:hover{opacity:0.9;transform:translateY(-1px);}
 .sbtn:active{transform:scale(0.98);}
 .sbtn:disabled{opacity:0.55;cursor:not-allowed;transform:none;}
-.sbtn.c-in{background:linear-gradient(135deg,#065F46,#059669);color:white;box-shadow:0 4px 14px rgba(5,150,105,0.3);}
-.sbtn.c-out{background:linear-gradient(135deg,#991B1B,#DC2626);color:white;box-shadow:0 4px 14px rgba(220,38,38,0.3);}
+.sbtn.c-in{background:linear-gradient(135deg,#065F46,#059669);color:white;box-shadow:0 6px 20px rgba(5,150,105,0.35);}
+.sbtn.c-out{background:linear-gradient(135deg,#991B1B,#DC2626);color:white;box-shadow:0 6px 20px rgba(220,38,38,0.35);}
 .sbtn.c-ot{background:linear-gradient(135deg,#92400E,#D97706);color:white;box-shadow:0 4px 14px rgba(217,119,6,0.3);}
 .sbtn.c-comp{background:linear-gradient(135deg,#4C1D95,#7C3AED);color:white;box-shadow:0 4px 14px rgba(124,58,237,0.3);}
 .sbtn.c-pk{background:linear-gradient(135deg,#1E40AF,#3B82F6);color:white;box-shadow:0 4px 14px rgba(59,130,246,0.3);}
@@ -130,21 +131,24 @@ select:focus,input:focus,textarea:focus{border-color:var(--teal-mid);box-shadow:
 textarea{resize:none;height:60px;font-size:13px;}
 .time-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
 .main-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px;}
-.btn-main{padding:14px 8px;border-radius:14px;border:2px solid;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:700;cursor:pointer;text-align:center;line-height:1.4;width:100%;transition:all 0.15s;}
-.btn-main:active{transform:scale(0.97);}
-.btn-entrada{background:var(--green);color:var(--green-dark);border-color:var(--green-border);}
-.btn-entrada.sel{box-shadow:0 0 0 3px rgba(5,150,105,0.3);border-color:#059669;}
-.btn-salida{background:var(--red);color:var(--red-dark);border-color:var(--red-border);}
-.btn-salida.sel{box-shadow:0 0 0 3px rgba(220,38,38,0.3);border-color:#DC2626;}
+.btn-main{padding:20px 8px;border-radius:16px;border:none;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;text-align:center;line-height:1.5;width:100%;transition:all 0.18s;position:relative;overflow:hidden;letter-spacing:0.2px;}
+.btn-main:active{transform:scale(0.96);}
+.btn-main::after{content:'';position:absolute;inset:0;background:rgba(255,255,255,0);transition:background 0.15s;}
+.btn-main:hover::after{background:rgba(255,255,255,0.12);}
+.btn-entrada{background:linear-gradient(145deg,#065F46 0%,#059669 60%,#10B981 100%);color:white;box-shadow:0 6px 20px rgba(5,150,105,0.35),0 2px 6px rgba(5,150,105,0.2);}
+.btn-entrada.sel{box-shadow:0 0 0 3px rgba(5,150,105,0.4),0 6px 20px rgba(5,150,105,0.35);transform:translateY(-1px);}
+.btn-salida{background:linear-gradient(145deg,#991B1B 0%,#DC2626 60%,#EF4444 100%);color:white;box-shadow:0 6px 20px rgba(220,38,38,0.35),0 2px 6px rgba(220,38,38,0.2);}
+.btn-salida.sel{box-shadow:0 0 0 3px rgba(220,38,38,0.4),0 6px 20px rgba(220,38,38,0.35);transform:translateY(-1px);}
 .extra{display:none;}.extra.on{display:block;}
 .notice{background:var(--blue);border:1px solid var(--blue-border);border-radius:10px;padding:9px 11px;font-size:11px;color:var(--blue-dark);line-height:1.55;margin-top:8px;margin-bottom:10px;}
 .notice-warn{background:var(--amber);border:1px solid var(--amber-border);border-radius:10px;padding:9px 11px;font-size:11px;color:var(--amber-dark);line-height:1.55;margin-top:8px;margin-bottom:10px;}
-.sbtn{width:100%;padding:13px;border-radius:13px;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:8px;display:none;transition:all 0.2s;}
+.sbtn{width:100%;padding:15px;border-radius:14px;border:none;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:700;cursor:pointer;margin-top:10px;display:none;transition:all 0.2s;letter-spacing:0.3px;}
+.sbtn:hover{opacity:0.9;transform:translateY(-1px);}
 .sbtn:active{transform:scale(0.98);}
 .sbtn:disabled{opacity:0.55;cursor:not-allowed;transform:none;}
-.sbtn.c-in{background:linear-gradient(135deg,#065F46,#059669);color:white;box-shadow:0 4px 14px rgba(5,150,105,0.3);}
-.sbtn.c-out{background:linear-gradient(135deg,#991B1B,#DC2626);color:white;box-shadow:0 4px 14px rgba(220,38,38,0.3);}
-.sbtn.c-sol{background:linear-gradient(135deg,#92400E,#D97706);color:white;box-shadow:0 4px 14px rgba(217,119,6,0.3);}
+.sbtn.c-in{background:linear-gradient(135deg,#065F46,#059669);color:white;box-shadow:0 6px 20px rgba(5,150,105,0.35);}
+.sbtn.c-out{background:linear-gradient(135deg,#991B1B,#DC2626);color:white;box-shadow:0 6px 20px rgba(220,38,38,0.35);}
+.sbtn.c-sol{background:linear-gradient(135deg,#0A3D47,#156B6B,#1D9E9E);color:white;box-shadow:0 6px 20px rgba(10,61,71,0.4);}
 .footer{font-size:10px;color:rgba(255,255,255,0.6);text-align:center;margin-top:14px;font-family:'DM Mono',monospace;text-shadow:0 1px 3px rgba(0,0,0,0.5);}
 .overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,0.65);align-items:center;justify-content:center;z-index:99;padding:1.5rem;backdrop-filter:blur(4px);}
 .overlay.on{display:flex;}
@@ -207,11 +211,20 @@ textarea{resize:none;height:60px;font-size:13px;}
       <div class="fg">
         <label>Registrar turno</label>
         <div class="main-btns">
-          <button class="btn-main btn-entrada" id="btn-in" onclick="setTipo('in')">Entrada<br>a turno</button>
-          <button class="btn-main btn-salida" id="btn-out" onclick="setTipo('out')">Salida<br>de turno</button>
+          <button class="btn-main btn-entrada" id="btn-in" onclick="setTipo('in')">
+            <div style="font-size:26px;margin-bottom:4px;">&#9654;</div>
+            <div style="font-size:15px;font-weight:700;">Entrada</div>
+            <div style="font-size:12px;font-weight:500;opacity:0.85;">a turno</div>
+          </button>
+          <button class="btn-main btn-salida" id="btn-out" onclick="setTipo('out')">
+            <div style="font-size:26px;margin-bottom:4px;">&#9632;</div>
+            <div style="font-size:15px;font-weight:700;">Salida</div>
+            <div style="font-size:12px;font-weight:500;opacity:0.85;">de turno</div>
+          </button>
         </div>
       </div>
 
+      <div style="display:flex;align-items:center;gap:10px;margin:4px 0 12px;"><div style="flex:1;height:1px;background:var(--gray-200);"></div><span style="font-size:10px;font-weight:600;color:var(--gray-400);text-transform:uppercase;letter-spacing:0.5px;">o solicitar</span><div style="flex:1;height:1px;background:var(--gray-200);"></div></div>
       <div class="fg">
         <label>Otras solicitudes</label>
         <div class="sw">
@@ -230,6 +243,7 @@ textarea{resize:none;height:60px;font-size:13px;}
       <!-- TIEMPO EXTRA -->
       <div class="extra" id="x-ot">
         <div class="fg"><label>Director aprobador</label><div class="sw"><select id="f-ap-ot"><option value="">Selecciona director...</option><option>Juan Sebastian Bejarano</option><option>Javier Espinosa</option></select></div></div>
+        <div class="fg"><label>Fecha del tiempo extra</label><input type="date" id="f-fecha-ot"></div>
         <div class="fg"><label>Horas extra solicitadas</label><div class="time-row"><div><div style="font-size:10px;color:var(--gray-500);margin-bottom:3px;">Desde</div><input type="time" id="f-hora-inicio"></div><div><div style="font-size:10px;color:var(--gray-500);margin-bottom:3px;">Hasta</div><input type="time" id="f-hora-fin"></div></div></div>
         <div class="fg"><label>Motivo</label><textarea id="f-motivo-ot" placeholder="Describe brevemente..."></textarea></div>
         <div class="notice">La solicitud sera revisada y notificada.</div>
@@ -246,8 +260,13 @@ textarea{resize:none;height:60px;font-size:13px;}
       <!-- FESTIVO -->
       <div class="extra" id="x-fest">
         <div class="fg"><label>Director aprobador</label><div class="sw"><select id="f-ap-fest"><option value="">Selecciona director...</option><option>Juan Sebastian Bejarano</option><option>Javier Espinosa</option></select></div></div>
+        <div class="fg"><label>Fecha del festivo trabajado</label><input type="date" id="f-fecha-fest"></div>
+        <div class="time-row" style="margin-bottom:12px;">
+          <div><label style="font-size:11px;font-weight:600;color:var(--gray-500);display:block;margin-bottom:4px;">Hora inicio</label><input type="time" id="f-hora-fest-ini"></div>
+          <div><label style="font-size:11px;font-weight:600;color:var(--gray-500);display:block;margin-bottom:4px;">Hora fin</label><input type="time" id="f-hora-fest-fin"></div>
+        </div>
         <div class="fg"><label>Motivo</label><textarea id="f-motivo-fest" placeholder="Ej: Trabaje el 1 de enero por cierre de proyecto..."></textarea></div>
-        <div class="notice">Aplican recargos por ley colombiana.</div>
+        <div class="notice">La solicitud sera revisada y notificada.</div>
       </div>
 
       <!-- VACACIONES -->
@@ -257,7 +276,7 @@ textarea{resize:none;height:60px;font-size:13px;}
         <div class="fg"><label>Fecha de fin</label><input type="date" id="f-vac-fin" onchange="calcVacDias()"></div>
         <div class="fg"><label>Motivo (opcional)</label><textarea id="f-motivo-vac" placeholder="Opcional..."></textarea></div>
         <div id="vac-dias-notice" style="display:none" class="notice"></div>
-        <div class="notice">Por ley colombiana tienes derecho a 15 dias habiles de vacaciones por ano trabajado.</div>
+        <div class="notice">La solicitud sera revisada y notificada.</div>
       </div>
 
       <!-- CORRECCION -->
@@ -267,14 +286,14 @@ textarea{resize:none;height:60px;font-size:13px;}
         <div class="fg"><label>Fecha del marcaje incorrecto</label><input type="date" id="f-fecha-marcaje"></div>
         <div class="time-row" style="margin-bottom:12px;"><div><label style="font-size:11px;font-weight:600;color:var(--gray-500);display:block;margin-bottom:4px;">Hora registrada (incorrecta)</label><input type="time" id="f-hora-incorrecta"></div><div><label style="font-size:11px;font-weight:600;color:var(--gray-500);display:block;margin-bottom:4px;">Hora correcta</label><input type="time" id="f-hora-correcta"></div></div>
         <div class="fg"><label>Motivo</label><textarea id="f-motivo-corr" placeholder="Explica que paso..."></textarea></div>
-        <div class="notice-warn">El director auditara la solicitud. Solo Gestion Humana puede aprobar correcciones.</div>
+
       </div>
 
       <!-- RECOGIDA -->
       <div class="extra" id="x-pk">
         <div class="fg"><label>Director aprobador</label><div class="sw"><select id="f-ap-pk"><option value="">Selecciona director...</option><option>Juan Sebastian Bejarano</option><option>Javier Espinosa</option></select></div></div>
         <div class="fg"><label>Punto de recogida</label><input type="text" id="f-lugar" placeholder="Ej: Entrada principal obra Norte"></div>
-        <div class="notice">Esta solicitud no registra entrada a turno. El turno inicia cuando llegues fisicamente.</div>
+        <div class="notice">La solicitud sera revisada y notificada.</div>
       </div>
 
       <button class="sbtn" id="sbtn" onclick="enviar()">Registrar</button>
@@ -494,9 +513,12 @@ async function doEnviar(correo,vehiculo){
     vehiculo:vehiculo,
     tipo:tipoLabel,
     aprobador:apEl?apEl.value:'',
+    fechaFest:tipoActual==='fest'?document.getElementById('f-fecha-fest').value:'',
+    horaFestIni:tipoActual==='fest'?document.getElementById('f-hora-fest-ini').value:'',
+    horaFestFin:tipoActual==='fest'?document.getElementById('f-hora-fest-fin').value:'',
     motivo:tipoActual==='ot'?document.getElementById('f-motivo-ot').value.trim():
            tipoActual==='comp'?document.getElementById('f-motivo-comp').value.trim():
-           tipoActual==='fest'?document.getElementById('f-motivo-fest').value.trim():
+           tipoActual==='fest'?('Fecha: '+document.getElementById('f-fecha-fest').value+' '+document.getElementById('f-hora-fest-ini').value+'-'+document.getElementById('f-hora-fest-fin').value+' | '+document.getElementById('f-motivo-fest').value.trim()):
            tipoActual==='vac'?document.getElementById('f-motivo-vac').value.trim():
            tipoActual==='corr'?document.getElementById('f-motivo-corr').value.trim():'',
     recogida:tipoActual==='pk'?document.getElementById('f-lugar').value.trim():'',
@@ -507,6 +529,7 @@ async function doEnviar(correo,vehiculo){
     fechaMarcaje:tipoActual==='corr'?document.getElementById('f-fecha-marcaje').value:'',
     horaIncorrecta:tipoActual==='corr'?document.getElementById('f-hora-incorrecta').value:'',
     horaCorrecta:tipoActual==='corr'?document.getElementById('f-hora-correcta').value:'',
+    fechaOT:tipoActual==='ot'?document.getElementById('f-fecha-ot').value:'',
     horaInicioExtra:tipoActual==='ot'?document.getElementById('f-hora-inicio').value:'',
     horaFinExtra:tipoActual==='ot'?document.getElementById('f-hora-fin').value:'',
     horasSolicitadas:tipoActual==='ot'?calcHorasStr(document.getElementById('f-hora-inicio').value,document.getElementById('f-hora-fin').value):'',

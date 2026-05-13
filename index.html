@@ -54,15 +54,60 @@ select:focus,input:focus{border-color:var(--brand3);box-shadow:0 0 0 3px rgba(29
 textarea{width:100%;padding:10px 14px;border:1.5px solid var(--g200);border-radius:12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--g800);resize:none;height:64px;outline:none;transition:border-color .2s;}
 textarea:focus{border-color:var(--brand3);}
 .main-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
-.btn-turno{padding:22px 8px;border-radius:18px;border:none;cursor:pointer;text-align:center;font-family:'Inter',sans-serif;transition:all .18s;position:relative;overflow:hidden;}
-.btn-turno:active{transform:scale(.96);}
-.btn-turno .icon{font-size:26px;margin-bottom:6px;display:block;}
-.btn-turno .main-txt{font-size:15px;font-weight:800;display:block;color:white;letter-spacing:.2px;}
-.btn-turno .sub-txt{font-size:11px;font-weight:500;display:block;color:rgba(255,255,255,.75);margin-top:2px;}
-.btn-in{background:linear-gradient(145deg,#065F46,#059669,#10B981);box-shadow:0 8px 24px rgba(5,150,105,.4);}
-.btn-in.sel{box-shadow:0 0 0 3px rgba(5,150,105,.4),0 8px 24px rgba(5,150,105,.35);transform:translateY(-2px);}
-.btn-out{background:linear-gradient(145deg,#991B1B,#DC2626,#EF4444);box-shadow:0 8px 24px rgba(220,38,38,.4);}
-.btn-out.sel{box-shadow:0 0 0 3px rgba(220,38,38,.4),0 8px 24px rgba(220,38,38,.35);transform:translateY(-2px);}
+.btn-turno{
+  padding:0;border-radius:12px;border:none;cursor:pointer;text-align:left;
+  font-family:'Inter',sans-serif;transition:all .2s cubic-bezier(.2,.8,.2,1);
+  position:relative;overflow:hidden;display:flex;flex-direction:column;
+  min-height:110px;
+}
+.btn-turno::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.08) 0%,rgba(0,0,0,.1) 100%);
+  opacity:0;transition:opacity .2s;
+}
+.btn-turno:hover::after{opacity:1;}
+.btn-turno:active{transform:scale(.97);}
+.btn-badge{
+  font-size:9px;font-weight:800;letter-spacing:1.5px;text-transform:uppercase;
+  padding:4px 10px;border-radius:6px;display:inline-block;margin:14px 14px 0;
+  width:fit-content;
+}
+.btn-main-content{
+  flex:1;display:flex;flex-direction:column;justify-content:flex-end;padding:10px 14px 14px;
+}
+.btn-turno .main-txt{
+  font-size:20px;font-weight:800;display:block;color:white;
+  letter-spacing:-.3px;line-height:1;
+}
+.btn-turno .sub-txt{
+  font-size:11px;font-weight:500;display:block;
+  color:rgba(255,255,255,.65);margin-top:3px;letter-spacing:.2px;
+}
+.btn-icon-wrap{
+  position:absolute;top:12px;right:14px;
+  width:36px;height:36px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+}
+.btn-in{
+  background:linear-gradient(135deg,#0A3D47 0%,#0E5A5A 40%,#1D9E9E 100%);
+  box-shadow:0 6px 20px rgba(10,61,71,.45),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.btn-in.sel{
+  box-shadow:0 0 0 2.5px #1D9E9E,0 8px 24px rgba(10,61,71,.5);
+  transform:translateY(-2px);
+}
+.btn-in .btn-badge{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);}
+.btn-in .btn-icon-wrap{background:rgba(255,255,255,.12);}
+.btn-out{
+  background:linear-gradient(135deg,#7F1D1D 0%,#B91C1C 45%,#EF4444 100%);
+  box-shadow:0 6px 20px rgba(127,29,29,.45),inset 0 1px 0 rgba(255,255,255,.1);
+}
+.btn-out.sel{
+  box-shadow:0 0 0 2.5px #EF4444,0 8px 24px rgba(127,29,29,.5);
+  transform:translateY(-2px);
+}
+.btn-out .btn-badge{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);}
+.btn-out .btn-icon-wrap{background:rgba(255,255,255,.12);}
 .divider{display:flex;align-items:center;gap:10px;margin:4px 0 14px;}
 .divider::before,.divider::after{content:'';flex:1;height:1px;background:var(--g200);}
 .divider span{font-size:10px;font-weight:700;color:var(--g400);text-transform:uppercase;letter-spacing:.6px;white-space:nowrap;}
@@ -136,14 +181,28 @@ textarea:focus{border-color:var(--brand3);}
         <label class="lbl">Registrar turno</label>
         <div class="main-btns">
           <button class="btn-turno btn-in" id="btnIn" onclick="setTipo('in')">
-            <span class="icon">&#9654;</span>
-            <span class="main-txt">Entrada</span>
-            <span class="sub-txt">a turno</span>
+            <span class="btn-badge">AMG Campo</span>
+            <div class="btn-icon-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 8 16 12 12 16"/><line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+            </div>
+            <div class="btn-main-content">
+              <span class="main-txt">Entrada</span>
+              <span class="sub-txt">Registrar inicio de turno</span>
+            </div>
           </button>
           <button class="btn-turno btn-out" id="btnOut" onclick="setTipo('out')">
-            <span class="icon">&#9632;</span>
-            <span class="main-txt">Salida</span>
-            <span class="sub-txt">de turno</span>
+            <span class="btn-badge">AMG Campo</span>
+            <div class="btn-icon-wrap">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 16 8 12 12 8"/><line x1="16" y1="12" x2="8" y2="12"/>
+              </svg>
+            </div>
+            <div class="btn-main-content">
+              <span class="main-txt">Salida</span>
+              <span class="sub-txt">Registrar fin de turno</span>
+            </div>
           </button>
         </div>
       </div>
@@ -223,7 +282,9 @@ textarea:focus{border-color:var(--brand3);}
 <div class="footer">AMG de Colombia SAS &amp; Inmovimento SAS &mdash; Sistema de Registro</div>
 <div class="overlay" id="overlay">
   <div class="ov-card">
-    <div class="ov-icon" id="ovIcon">OK</div>
+    <div class="ov-icon" id="ovIcon" style="display:flex;align-items:center;justify-content:center;width:72px;height:72px;border-radius:50%;background:#ECFDF5;margin:0 auto .75rem;">
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
     <div class="ov-title" id="ovTitle">Enviado</div>
     <div class="ov-sub" id="ovSub"></div>
     <div class="ov-time" id="ovTime"></div>
@@ -232,7 +293,9 @@ textarea:focus{border-color:var(--brand3);}
 </div>
 <div class="ot-modal" id="otModal">
   <div class="ot-card">
-    <div class="ot-icon">!</div>
+    <div class="ot-icon" style="display:flex;align-items:center;justify-content:center;width:60px;height:60px;border-radius:50%;background:#FFFBEB;margin:0 auto .5rem;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+    </div>
     <div class="ot-title">Horas excedidas</div>
     <div class="ot-body" id="otBody">Tu turno supera las horas permitidas.</div>
     <div class="ot-btns">
@@ -243,7 +306,7 @@ textarea:focus{border-color:var(--brand3);}
 </div>
 <script>
 
-var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGLm-Vcm1i-FQnbOzYttTyaqqJmmnLEYZ3fYd4LnRnKnP1X2WHzft8WtHiQ8QupY3n/exec';
+var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwJ9U210E6ymZUnPMpPz8XqXGLmnWb5OjELRA9lH0hnBAu4n1lEvYjdk3wWPnQnI50G/exec';
 var gLat=null,gLng=null,gAcc=null,tipoActual=null,otCb=null;
 
 function pad(n){return String(n).padStart(2,'0');}
@@ -256,7 +319,7 @@ function geoOK(pos){
   gLng=pos.coords.longitude.toFixed(6);
   gAcc=Math.round(pos.coords.accuracy);
   document.getElementById('geoBox').className='geo-box geo-ok';
-  document.getElementById('geoIcon').textContent='OK';
+  document.getElementById('geoIcon').innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#065F46" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
   document.getElementById('geoTitle').textContent='Listo para registrar';
   document.getElementById('geoDesc').textContent='Puedes continuar con tu registro.';
   document.getElementById('geoBtn').style.display='none';
@@ -264,7 +327,7 @@ function geoOK(pos){
 }
 function geoFail(){
   document.getElementById('geoBox').className='geo-box geo-fail';
-  document.getElementById('geoIcon').textContent='!';
+  document.getElementById('geoIcon').innerHTML='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#991B1B" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
   document.getElementById('geoTitle').textContent='Se requiere un paso adicional';
   document.getElementById('geoDesc').textContent='Toca Reintentar para continuar.';
   document.getElementById('geoBtn').style.display='block';
@@ -435,7 +498,17 @@ async function doEnviar(correo,vehiculo){
   try{await fetch(SCRIPT_URL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});}
   catch(ex){console.error('Error:',ex);}
   gLat=null;gLng=null;
-  var icons={in:'OK',out:'OK',ot:'!',comp:'OK',fest:'OK',vac:'OK',corr:'!'};
+  var iconsSvg={
+    in:'<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>',
+    out:'<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>',
+    ot:'<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#D97706" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>',
+    comp:'<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#1E40AF" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>',
+    fest:'<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#4C1D95" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>',
+    vac:'<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2.5" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>',
+    corr:'<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#374151" stroke-width="2.5" stroke-linecap="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>',
+  };
+  var bgColors={in:'#ECFDF5',out:'#ECFDF5',ot:'#FFFBEB',comp:'#EFF6FF',fest:'#F5F3FF',vac:'#ECFDF5',corr:'#F3F4F6'};
+  var icons={in:'',out:'',ot:'',comp:'',fest:'',vac:'',corr:''};
   var subs={
     in:'Tu entrada a turno quedo registrada.',
     out:'Tu salida de turno quedo registrada.',
@@ -445,7 +518,9 @@ async function doEnviar(correo,vehiculo){
     vac:'Solicitud enviada a '+aprobador+'. La solicitud sera revisada y notificada.',
     corr:'Solicitud enviada para auditoria. La solicitud sera revisada y notificada.'
   };
-  document.getElementById('ovIcon').textContent=icons[tipoActual]||'OK';
+  var ovEl=document.getElementById('ovIcon');
+  ovEl.innerHTML=iconsSvg[tipoActual]||iconsSvg['in'];
+  ovEl.style.background=bgColors[tipoActual]||'#ECFDF5';
   document.getElementById('ovTitle').textContent=tipoLabel;
   document.getElementById('ovSub').textContent=subs[tipoActual]||'Registro enviado.';
   document.getElementById('ovTime').textContent=ahora();

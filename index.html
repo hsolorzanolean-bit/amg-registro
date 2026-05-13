@@ -54,49 +54,42 @@ select:focus,input:focus{border-color:var(--brand3);box-shadow:0 0 0 3px rgba(29
 textarea{width:100%;padding:10px 14px;border:1.5px solid var(--g200);border-radius:12px;font-family:'Inter',sans-serif;font-size:13px;color:var(--g800);resize:none;height:64px;outline:none;transition:border-color .2s;}
 textarea:focus{border-color:var(--brand3);}
 
-/* ── TURNO BUTTONS — Apple-style, AMG branded ── */
-.main-btns{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;}
-
+.main-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;}
 .btn-turno{
-  position:relative;overflow:hidden;
-  border:none;border-radius:20px;cursor:pointer;
+  border:none;border-radius:14px;cursor:pointer;
   font-family:'Inter',sans-serif;
-  padding:20px 18px 18px;
-  display:flex;flex-direction:column;align-items:flex-start;
-  min-height:120px;
-  transition:transform .15s ease,box-shadow .15s ease;
+  padding:14px 14px 12px;
+  display:flex;flex-direction:row;align-items:center;gap:12px;
+  transition:transform .12s ease,box-shadow .12s ease;
   -webkit-tap-highlight-color:transparent;
+  min-height:72px;
 }
-.btn-turno:active{transform:scale(.95);}
-
-/* Shine overlay */
-.btn-turno::before{
-  content:'';position:absolute;
-  top:0;left:0;right:0;height:50%;
-  background:linear-gradient(180deg,rgba(255,255,255,.18) 0%,rgba(255,255,255,0) 100%);
-  border-radius:20px 20px 0 0;
-  pointer-events:none;
+.btn-turno:active{transform:scale(.96);}
+.btn-turno .btn-ic{
+  width:38px;height:38px;border-radius:10px;flex-shrink:0;
+  background:rgba(255,255,255,.18);
+  display:flex;align-items:center;justify-content:center;
 }
-
-/* ENTRADA — AMG Teal */
+.btn-turno .btn-texts{text-align:left;}
+.btn-turno .main-txt{
+  font-size:17px;font-weight:800;color:#fff;
+  display:block;letter-spacing:-.2px;line-height:1.1;
+}
+.btn-turno .sub-txt{
+  font-size:10px;font-weight:500;
+  color:rgba(255,255,255,.65);
+  display:block;margin-top:2px;letter-spacing:.2px;text-transform:uppercase;
+}
 .btn-in{
-  background:linear-gradient(160deg,#0E6B5E 0%,#0A3D47 60%,#072E37 100%);
-  box-shadow:0 4px 0 #051E25, 0 8px 32px rgba(10,61,71,.55);
+  background:linear-gradient(135deg,#0A3D47 0%,#0E6060 100%);
+  box-shadow:0 3px 0 #051E25,0 6px 20px rgba(10,61,71,.5);
 }
-.btn-in.sel{
-  transform:translateY(2px);
-  box-shadow:0 2px 0 #051E25, 0 4px 16px rgba(10,61,71,.6);
-}
-
-/* SALIDA — Deep Red */
+.btn-in.sel{transform:translateY(2px);box-shadow:0 1px 0 #051E25,0 3px 10px rgba(10,61,71,.5);}
 .btn-out{
-  background:linear-gradient(160deg,#C0392B 0%,#922B21 60%,#6E1F17 100%);
-  box-shadow:0 4px 0 #4A130D, 0 8px 32px rgba(146,43,33,.55);
+  background:linear-gradient(135deg,#7F1D1D 0%,#B91C1C 100%);
+  box-shadow:0 3px 0 #3B0A0A,0 6px 20px rgba(127,29,29,.5);
 }
-.btn-out.sel{
-  transform:translateY(2px);
-  box-shadow:0 2px 0 #4A130D, 0 4px 16px rgba(146,43,33,.6);
-}
+.btn-out.sel{transform:translateY(2px);box-shadow:0 1px 0 #3B0A0A,0 3px 10px rgba(127,29,29,.5);}
 
 /* Icon circle */
 .btn-ic{
@@ -203,26 +196,26 @@ textarea:focus{border-color:var(--brand3);}
         <label class="lbl">Registrar turno</label>
         <div class="main-btns">
           <button class="btn-turno btn-in" id="btnIn" onclick="setTipo('in')">
-            <span class="btn-lbl">Turno</span>
             <div class="btn-ic">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
-                <path d="M10 8l6 4-6 4V8z" fill="white" stroke="none"/>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="5 12 19 12"/><polyline points="13 6 19 12 13 18"/>
               </svg>
             </div>
-            <span class="main-txt">Entrada</span>
-            <span class="sub-txt">Inicio de turno</span>
+            <div class="btn-texts">
+              <span class="main-txt">Entrada</span>
+              <span class="sub-txt">Inicio de turno</span>
+            </div>
           </button>
           <button class="btn-turno btn-out" id="btnOut" onclick="setTipo('out')">
-            <span class="btn-lbl">Turno</span>
             <div class="btn-ic">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="10"/>
-                <rect x="9" y="9" width="6" height="6" rx="1" fill="white" stroke="none"/>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="19 12 5 12"/><polyline points="11 18 5 12 11 6"/>
               </svg>
             </div>
-            <span class="main-txt">Salida</span>
-            <span class="sub-txt">Fin de turno</span>
+            <div class="btn-texts">
+              <span class="main-txt">Salida</span>
+              <span class="sub-txt">Fin de turno</span>
+            </div>
           </button>
         </div>
       </div>

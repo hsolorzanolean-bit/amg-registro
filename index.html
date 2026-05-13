@@ -293,7 +293,7 @@ textarea.fi{resize:none;height:60px;font-size:13px;}
   </div>
 </div>
 <script>
-var SU='https://script.google.com/macros/s/AKfycby0-tJ0YNX83PxzF1ZULKEItSOiVaixpVOWvrSnkF9GIqclMERkP3IeCbMo74gelonx/exec';
+var SU='https://script.google.com/macros/s/AKfycbzQ3e0je3QUC81VJtyuZrAkdmd4s7H5MiXIo3kBK1zBYrwtu3mWDecd5eg9TfUuZjbb/exec';
 var gLat=null,gLng=null,gAcc=null,tipo=null,otCb=null;
 var empleadosDB=[],directoresDB=[];
 
@@ -557,6 +557,20 @@ async function doSend(correo,vehiculo){
       body:JSON.stringify(payload)});
   }catch(ex){console.error(ex);}
   gLat=null;gLng=null;
+  // Pedir GPS inmediatamente para el siguiente registro
+  setTimeout(function(){
+    if(navigator.geolocation){
+      navigator.geolocation.getCurrentPosition(
+        function(p){
+          gLat=p.coords.latitude.toFixed(6);
+          gLng=p.coords.longitude.toFixed(6);
+          gAcc=Math.round(p.coords.accuracy);
+        },
+        function(){},
+        {enableHighAccuracy:true,timeout:10000,maximumAge:0}
+      );
+    }
+  },500);
   var ovIcBg={
     'in':'#ECFDF5','out':'#ECFDF5','ot':'#FFFBEB',
     'comp':'#EFF6FF','fest':'#F5F3FF','vac':'#ECFDF5','corr':'#F3F4F6'
